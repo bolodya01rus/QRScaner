@@ -11,9 +11,9 @@ xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:conv="clr-namespace:QRScaner.Converter"
         xmlns:viewmodels="clr-namespace:QRScaner.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
-        WindowStyle="None"
+      
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="700" Width="1000">
     <Window.Resources>
         <conv:ImageConverter x:Key="ImageConverter"/>
     </Window.Resources>
@@ -23,56 +23,8 @@ xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="75"/>
-            </Grid.ColumnDefinitions>
-            <Grid HorizontalAlignment="Stretch" Grid.Column="0" >
-                
-                <Grid.Style>
-                    <Style TargetType="{x:Type Grid}">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Cursor" Value="SizeAll"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
-                <i:Interaction.Behaviors>
-                    <bhv:DragBehaviors/>
-                </i:Interaction.Behaviors>
-            </Grid>
-            <StackPanel Orientation="Horizontal" Grid.Column="1">
-
-
-
-                <Button Width="25">
-                    <icon:BootstrapIcons Kind="Dash"/>
-                </Button>
-                <Button Width="25" Padding="0">
-                    <icon:BootstrapIcons Kind="ArrowsAngleExpand"/>
-                </Button>
-                <Button Padding="0" Command="{Binding WindowCloseCommand}" Width="25" Background="#FFFF7F7F" Height="16" >
-                    <icon:BootstrapIcons Kind="X"/>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding WindowCloseCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <i:Interaction.Behaviors>
-                        <bhv:CloseQRScanerBehaviors/>
-                    </i:Interaction.Behaviors>
-                </Button>
-            </StackPanel>
-
-        </Grid>
-        <StackPanel Grid.Row="1">
+    <Grid>      
+        <StackPanel >
             <StackPanel  Orientation="Horizontal" Margin="0,20,0,0" Height="32" VerticalAlignment="Top">
                 <ComboBox x:Name="CameraList" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="200"  ItemsSource="{Binding CameraList}"
                       SelectedIndex="{Binding CameraListSelectedIndex}" />
@@ -80,8 +32,8 @@ xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
                 <Button  Content="Открыть" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Command="{Binding OpenFileCommand}"/>
 
             </StackPanel>
-            <Label Content="Результат" Foreground="Black" Margin="590,0,0,0"/>
-            <Grid Margin="20,0,20,0" Height="300">
+         
+            <Grid Margin="20,0,20,0" MinHeight="200" MaxHeight="550">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2.5*" />
                     <ColumnDefinition Width="auto" />
@@ -92,7 +44,7 @@ xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
                 <Image Source="{Binding ImageOutput, Converter={StaticResource ImageConverter}}"/>
                 <Separator Grid.Column="1"  Width="3"/>
                 <TextBox Grid.Column="2" x:Name="TextOutput" TextWrapping="Wrap" Text="{Binding TextOutput}"
-                     />
+                     mah:TextBoxHelper.Watermark="Результат"/>
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                 <Button  Content="Отмена" HorizontalAlignment="Left"  VerticalAlignment="Top" Command="{Binding CleanFormCommand}" Background="#FFCBA2F1" Margin="0,0,20,0"/>
